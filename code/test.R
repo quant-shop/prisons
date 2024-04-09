@@ -2,14 +2,14 @@ library(readr)
 library(dplyr)
 library(tidyverse)
 
-# Create the year vector from 1926 to 2022
-years <- 1925:2022
+# Create test data; match df$year == 1926:2022
+year <- 1925:2022
 
 # Generate random pseudo data for the percent_federal column
-test_federal <- runif(length(years), min = 0, max = 100)
+test_federal <- runif(length(year), min = 0, max = 100)
 
 # Generate random pseudo data for the percent_state column, ensuring it is generally 12 to 15 times higher than percent_federal
-test_state <- test_federal * runif(length(years), min = 5, max = 15)
+test_state <- test_federal * runif(length(year), min = 5, max = 15)
 
 # Scale the percent_state and percent_federal values to ensure they sum up to 100
 test_total <- test_state + test_federal
@@ -17,7 +17,7 @@ test_state <- test_state / test_total * 100
 test_federal <- test_federal / test_total * 100
 
 # Create the data frame
-test_data <- data.frame(year = years,
+test_data <- data.frame(year = year,
                           test_total = test_state + test_federal,
                           test_state = test_state,
                           test_federal = test_federal)
@@ -53,7 +53,12 @@ df <- df %>%
 df
 tail(df)
 
-
+df$year <- as.numeric(df$year)
+df$state_prisons_count <- as.numeric(df$state_prisons_count, round, 2)
+df$federal_prisons_count <- as.numeric(df$federal_prisons_count, round, 2)
+df$state_prisons_rates <- as.numeric(df$state_prisons_rates, round, 2)
+df$federal_prisons_rates <- as.numeric(df$federal_prisons_rates, round, 2)
+str(df)
 
 # Merge the data frames by the variable 'year'
 merged_df <- merge(test_data, df, by = "year")
@@ -65,3 +70,17 @@ df2
 tail(df2)
 str(df2)
 df2
+
+plot(df$year)
+
+plot(df2$year, df2$state_prisons_count, 
+     main = "US State Prison Count", 
+     xlab = "Year", 
+     ylab = "Total Admissions")
+
+plot(df2$year, df2$federal_prisons_count,
+     main = "US Federal Prison Count", 
+     xlab = "Year", 
+     ylab = "Total Admissions")
+
+
