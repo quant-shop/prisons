@@ -2,7 +2,7 @@ library(readr)
 library(dplyr)
 library(tidyverse)
 
-# Create the year vector from 1926 to 1986
+# Create the year vector from 1926 to 2022
 years <- 1925:2022
 
 # Generate random pseudo data for the percent_federal column
