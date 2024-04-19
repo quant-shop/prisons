@@ -1,0 +1,101 @@
+---
+title: "April 19 Memo"
+subtitle: "Federal and State Prison Population, 1926-1986"
+author: "Nathan Alexander"
+output:
+  html_document:
+    toc: true
+    self_contained: yes
+    mode: selfcontained
+  pdf_document:
+    keep_tex: true
+---
+
+Hi team,
+
+I am sharing some of the results of the cleaned data on US State and Federal prisons.
+
+```{r load-packages, include=FALSE}
+library(readr)
+library(ggplot2)
+library(dplyr)
+# install.packages("patchwork")
+library(patchwork)
+# install.packages("plotly")
+library(plotly)
+```
+
+
+```{r}
+# read in data and update
+read_csv("/Users/nathanalexander/Dropbox/Projects/prisons/data/fed_state_prison_pop_1926_1986.csv",
+         col_types = cols(Year = col_date(format = "%Y"),
+                          Total = col_number(),
+                          `Total Percentage` = col_number(),
+                          `Prison Type` = col_factor(levels = c("State + Federal", "State", "Federal")), 
+                          `White Percentage` = col_number(),
+                          `Black Percentage` = col_number())) -> fed_state_prison_pop_1926_1986
+
+problems(fed_state_prison_pop_1926_1986) # identify issues with df
+
+df <- fed_state_prison_pop_1926_1986
+df %>% 
+  rename(Count = `Total`,
+         TotalPct = `Total Percentage`,
+         Type = `Prison Type`,
+         WhitePct = `White Percentage`,
+         BlackPct = `Black Percentage`) %>% 
+  relocate(Year, Type) -> df
+```
+
+
+
+```{r}
+# subset data
+df_state = df %>% filter(Type == "State")
+df_state
+
+df_federal = df %>% filter(Type == "Federal")
+df_federal
+
+df_both = df %>% filter(Type == "State + Federal")
+df_both
+```
+
+
+```{r}
+# basic plot of state population counts
+ggplot(df_state, aes(x=Year, y=Count)) +
+  geom_area( fill="#69b3a2", alpha=0.4) +
+  geom_line(color="#69b3a2", size=2) +
+  geom_point(size=3, color="#69b3a2") +
+  ggtitle("US State Prison Counts (1926-1986)")
+```
+
+```{r}
+# basic plot of state population counts
+ggplot(df_federal, aes(x=Year, y=Count)) +
+  geom_area( fill="orange", alpha=0.4) +
+  geom_line(color="orange", size=2) +
+  geom_point(size=3, color="orange") +
+  ggtitle("US Federal Prison Counts (1926-1986)")
+```
+
+
+```{r}
+# basic plot of white vs. black population counts (state + federal)
+p1 <- ggplot(df_both, aes(x=Year, y=WhitePct)) +
+  geom_line(color="lightblue", size=2) +
+  ggtitle("White Percentage")
+
+p2 <- ggplot(df_both, aes(x=Year, y=BlackPct)) +
+  geom_line(color="darkblue",size=2) +
+  ggtitle("Black Percentage")
+```
+
+```{r}
+# Display both charts side by side thanks to the patchwork package
+p1 + p2
+```
+
+
