@@ -29,35 +29,47 @@ df %>%
 
 # subset data
 df_state = df %>% filter(Type == "State")
+df_state <- df_state %>% 
+  mutate(date = as.Date(Year, format = "%Y-%m-%d"))
 df_state
+write_csv(df_state, "/Users/nathanalexander/Dropbox/Projects/prisons/data/df_state.csv")
 
 df_federal = df %>% filter(Type == "Federal")
+df_federal <- df_federal %>% 
+  mutate(date = as.Date(Year, format = "%Y-%m-%d"))
 df_federal
+write_csv(df_federal, "/Users/nathanalexander/Dropbox/Projects/prisons/data/df_federal.csv")
 
 df_both = df %>% filter(Type == "State + Federal")
+df_both <- df_both %>% 
+  mutate(date = as.Date(Year, format = "%Y-%m-%d"))
 df_both
+write_csv(df_both, "/Users/nathanalexander/Dropbox/Projects/prisons/data/df_both.csv")
+
 
 ## basic plot of state population counts
-ggplot(df_state, aes(x=Year, y=Count)) +
+ggplot(df_state, aes(x=date, y=Count)) +
   geom_area( fill="#69b3a2", alpha=0.4) +
   geom_line(color="#69b3a2", size=1.5) +
   geom_point(size=3, color="#69b3a2") +
   ggtitle("US State Prison Counts (1926-1986)")
 
 # basic plot of white vs. black population counts (state + federal)
-p1 <- ggplot(df_both, aes(x=Year, y=WhitePct)) +
+p1 <- ggplot(df_both, aes(x=date, y=WhitePct)) +
   geom_line(color="lightblue", size=2) +
-  ggtitle("White Percentage") +
+  ggtitle("US State and Federal Prison Racialization (1926 - 1986)") +
   ylab("% Racialized as White") +
-  xlab("Period between 1926 and 1986") + 
-  ylim(1,100)
+  xlab("Year") + 
+  ylim(1,100) +
+  geom_line()
 p1
-p2 <- ggplot(df_both, aes(x=Year, y=BlackPct)) +
-  geom_line(color="darkblue",size=2) +
-  ggtitle("Black Percentage") +
+p2 <- ggplot(df_both, aes(x=date, y=BlackPct)) +
+  geom_line(color="red",size=2) +
+  ggtitle("US State and Federal Prison Racialization (1926 - 1986)") +
   ylab("% Racialized as Black") +
-  xlab("Period between 1926 and 1986") + 
-  ylim(1,100)
+  xlab("Year") + 
+  ylim(1,100) +
+  geom_line()
 p2
 # Display both charts side by side thanks to the patchwork package
 p1 + p2
