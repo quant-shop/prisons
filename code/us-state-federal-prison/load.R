@@ -40,18 +40,24 @@ df_both
 ## basic plot of state population counts
 ggplot(df_state, aes(x=Year, y=Count)) +
   geom_area( fill="#69b3a2", alpha=0.4) +
-  geom_line(color="#69b3a2", size=2) +
+  geom_line(color="#69b3a2", size=1.5) +
   geom_point(size=3, color="#69b3a2") +
   ggtitle("US State Prison Counts (1926-1986)")
 
 # basic plot of white vs. black population counts (state + federal)
 p1 <- ggplot(df_both, aes(x=Year, y=WhitePct)) +
   geom_line(color="lightblue", size=2) +
-  ggtitle("White Percentage")
+  ggtitle("White Percentage") +
+  ylab("% Racialized as White") +
+  xlab("Period between 1926 and 1986") + 
+  ylim(1,100)
 p1
 p2 <- ggplot(df_both, aes(x=Year, y=BlackPct)) +
   geom_line(color="darkblue",size=2) +
-  ggtitle("Black Percentage")
+  ggtitle("Black Percentage") +
+  ylab("% Racialized as Black") +
+  xlab("Period between 1926 and 1986") + 
+  ylim(1,100)
 p2
 # Display both charts side by side thanks to the patchwork package
 p1 + p2
