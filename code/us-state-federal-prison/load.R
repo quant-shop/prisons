@@ -15,10 +15,12 @@ read_csv("data/fed_state_prison_pop_1926_1986.csv",
                           `Total Percentage` = col_number(),
                           `Prison Type` = col_factor(levels = c("State + Federal", "State", "Federal")), 
                           `White Percentage` = col_number(),
-                          `Black Percentage` = col_number())) -> fed_state_prison_pop_1926_1986
-problems(fed_state_prison_pop_1926_1986) # identify issues with df
-View(fed_state_prison_pop_1926_1986)
-df <- fed_state_prison_pop_1926_1986
+                          `Black Percentage` = col_number())) -> fed_state_prison_pop_1926_1986_clean
+write_csv(fed_state_prison_pop_1926_1986_clean, "data/fed_state_prison_pop_1926_1986_clean.csv")
+
+problems(fed_state_prison_pop_1926_1986_clean) # identify issues with df
+View(fed_state_prison_pop_1926_1986_clean)
+df <- fed_state_prison_pop_1926_1986_clean
 df %>% 
   rename(Count = `Total`,
          TotalPct = `Total Percentage`,
@@ -73,6 +75,8 @@ p2 <- ggplot(df_both, aes(x=date, y=BlackPct)) +
 p2
 # Display both charts side by side thanks to the patchwork package
 p1 + p2
+
+
 
 # create an interactive plot using plotly
 ggplotly(p1)
