@@ -1,0 +1,424 @@
+---
+title: "Data Wells: Race and State Violence in the United States from 1892"
+subtitle: "Quantitative Histories Workshop"
+author:
+  - name: Nathan Alexander
+    affiliations:
+      - ref: hu
+  - name: Kade Davis
+    affiliations:
+      - ref: mc
+  - name: Basil Ghali
+    affiliations:
+      - ref: hu
+  - name: Qyana Stewart
+    affiliations:
+      - ref: hu
+  - name: Gabriella La Cour
+    affiliations:
+      - ref: sc
+affiliations:
+  - id: hu
+    name: Howard University
+    city: Washington
+    state: DC
+  - id: mc
+    name: Morehouse College
+    city: Atlanta
+    state: GA
+  - id: sc
+    name: Spelman College
+    city: Atlanta
+    state: GA
+  - id: cd
+    name: Center for Applied Data Science and Analytics
+    city: Washington
+    state: DC
+format:
+  html:
+    self-contained: true
+    embed-resources: true
+  revealjs:
+    output-file: 2024_04_27_bob_moses.qmd
+    height: 900
+    width: 1600
+    smaller: false
+    scrollable: true
+    slide-number: c/t #< collapsted/total
+    footer: ""
+    toc: false
+    echo: true
+    incremental: false
+    self-contained: true
+    theme: default
+---
+
+
+## A focus on "Data Wells": [*Data*]{style="color:darkgreen;"} + Ida B. [*Wells*]{style="color:darkgreen;"}-Barnett
+
+::: {.incremental}
+
+  - We use the term "[Data Wells]{style="color:darkgreen;"}" to describe how we practice the identification, input, and storage of what can be termed as critical insights data, or CIDs.
+  
+  - We use information in databases in four ways: 
+  
+    (1) studying problems in the [quantification of historical information]{style="color:red;"} across various axes: time, social constructs, and/or systemic issues, 
+    
+    (2) data [identification]{style="color:red;"} and [wrangling]{style="color:red;"}, 
+    
+    (3) data [analysis]{style="color:red;"} and [communication]{style="color:red;"}, and 
+    
+    (4) [modeling]{style="color:red;"} abstract inquiries.
+  
+  - We begin our analysis with Ida B. Wells-Barnett's organization and analysis of lynching.
+  
+  - We describe "Data Wells" of U.S. state violence using quantitative history as a frame.
+
+:::
+
+## On the Principles of Reconstruction
+
+::: {.incremental}
+
+  - Du Bois' (1935) [Black Reconstruction: An Essay Toward a History of the Part which Black Folk Played in the Attempt to Reconstruct Democracy in America, 1860-1880](https://www.loa.org/books/698-black-reconstruction/) offers an alternative assessment of the post-Civil War period in the United States.
+  
+  - Democracy provided a new narrative at the time to examine African American progress post enslavement, and it continued to challenge long-standing narratives about racial hierarchy.
+  
+  - Recently, notable scholars, such as Gloria Ladson-Billings, return to the importance of narratives of *democracy* in relation to the promise and perils of education and society broadly, while also highlighting the limits of liberalism.
+  
+:::
+
+## Ida B. Wells and Reconstruction
+
+{{< video https://youtu.be/wYjKHLZllSQ width="100%" height="85%" >}}
+
+# Quantitative Histories Workshop {background-color="lightgrey"}
+
+`Curriculum & software development collective` 
+
+and
+
+[research lab]{style="color:orange;"}
+
+```{r}
+#| echo: false
+#| output: false
+#| warning: false
+
+# install all required packages
+require("terra")
+require(tidyverse)
+install.packages("tidycensus", repos = "http://cran.us.r-project.org")
+require(tmap)
+require("ggiraph")
+require(mapdeck)
+require(ggplot2)
+
+# load all required libraries
+library(tidycensus)
+library(tidyverse)
+library(tigris)
+library(tidycensus)
+library(tidyverse)
+library(scales)
+library(ggplot2)
+library(sf)
+install.packages("patchwork", repos = "http://cran.us.r-project.org") # To display 2 charts together
+install.packages("geojsonio", repos = "http://cran.us.r-project.org")
+library(geojsonio)
+
+
+# load packages and libraries
+library(readr)
+library(ggplot2)
+library(dplyr)
+install.packages("plotly", repos = "http://cran.us.r-project.org")
+library(plotly)
+```
+
+## Quantitative history
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+  - Quantitative history considers methods and approaches to artifacts as data and information.
+  
+  - Historians like Pierre Chanu (text to right) are centered in traditional texts; more perspectives are uncovering troubling practices with regard to race[^chanu].
+  
+  - Despite long-standing critiques, there are [few critical dimensions]{style="color:orange;"} in [quantitative history] narratives.
+  
+:::
+
+[^chanu]: Vovelle, Michel (1987). Bourgeoisies de province et Revolution. Presses Universitaires de Grenoble.
+
+::: {.column width="60%"}
+
+![[*Histoire Quantitative*](https://www.jstor.org/stable/1876930){target="blank"} by Pierre Chanu](quanthist.jpg){width=40%}
+
+:::
+
+::::
+
+## Racialization and U.S. State Violence
+
+Today, we will discuss race and racialization in *data wells* of state sponsored violence:
+
+. . .
+
+  - **Lynching**. Framing historical incidents and conceptualizing the contemporary formations of lynching.
+
+. . .
+
+  - **Policing**. Understanding the role of policing in relation to both lynching and prisons.
+
+. . .
+
+  - **Prisons**. Identifying narratives around prison populations and racialization.
+
+## Lynching
+
+Caitlin Pollock developed [maps](https://redrecord.cmjpollock.com/) using data extracted from Wells-Barnett's work. Although the data provides for quick loading and analysis, it does require some data wrangling and other questions remain. We build on this data to examine the social implications of cartography and map making.
+
+::: {.panel-tabset}
+
+### 1893
+
+Content for 1893
+
+
+### 1894
+
+Content for 1894
+
+
+### 1895
+
+Content for 1895
+
+:::
+
+
+## {background-image="https://www.bostonreview.net/wp-content/uploads/2022/10/Nathan-Waller-feature-1.jpg" background-opacity=0.5}
+
+Sandra Bland, killed by police in 2015, Texas
+
+## {background-image="https://media.cnn.com/api/v1/images/stellar/prod/200709194059-09-week-in-photos-0710.jpg?q=w_1480,c_fill" background-opacity=0.5}
+
+Breonna Taylor, killed by police in 2020, Louisville
+
+## {background-image="https://media.cnn.com/api/v1/images/stellar/prod/200613193913-16-protests-0613-atlanta.jpg?q=w_1576,c_fill" background-opacity=0.5}
+
+Rayshard Brooks, killed by police in 2020, Atlanta
+
+## {background-image="https://media.cnn.com/api/v1/images/stellar/prod/200615140632-brooklyn-hospital-protest-0611.jpg?q=w_1576,c_fill" background-opacity=0.5}
+
+George Floyd, killed by police in 2020, Minneapolis
+
+## Fatal police interactions
+
+[Alicia Chugtai (2020)](https://interactive.aljazeera.com/aje/2020/know-their-names/index.html) developed an interactive site, **Know their names**, that chronicles Black people killed by police in the United States.
+
+```{=html}
+<iframe width="1540" height="1000" src="https://interactive.aljazeera.com/aje/2020/know-their-names/index.html" title="Know their names" data-external="1"></iframe>
+```
+
+
+## Histories of police violence
+
+  - Ku Klux Klan origin and membership
+  
+  - *American Policing: Protect Private Property, Not People*, by David Todd
+  
+  - *The History of Police in America and the First Force*, by Olivia Waxman
+  
+  - Cop Cities (see, Atlanta) and the militarization of local police
+
+
+## Media Framing
+
+In *Race and Police Brutality: The Importance of Media Framing* (Fridkin, 2017) the authors discuss how media framing can affect the audience's perception of situations. Here, we disucss racialization.
+
+::: {.incremental}
+
+  - [Emphasis frames]{style="color:red;"}
+  
+    - Black Americans make up 40 percent of the prison population.
+    
+    - History: "War on Crime," "War on Drugs," Jim Crow
+    
+  - [Equivalency frames]{style="color:red;"}
+  
+    - Black Americans make up a lower percdentage of police fatalities than white people
+    
+    - Black Americans make up 40 percent of police fatalities and 14 percent of the population.
+  
+:::
+
+
+## Anlayzing policing data
+
+::: {.incremental}
+
+  - Since 2015, the Washington Post has collected [data on fatal police interactions](https://www.washingtonpost.com/graphics/investigations/police-shootings-database/) in the United States. This effort has proven to be one useful tool for our historical analysis.
+  
+  - We expanded the fatal police shootings database by adding new variables and flags (e.g., confederate state, population) to help assess interrelations among and between variables.
+
+  - Our analyses have resulted in a host of questions in relation to the presence of state violence.
+  
+:::
+
+. . .
+
+|  | Fatal | Employment | Confederate |
+|:---|:---:|:---:|:---:|
+| Fatal    | 1    |    |    |
+| Employment     | .807*    | 1    |     |
+| Confederate    | .239**     | .359*    | 1    |
+
+: Sample correlations in Fatal Force database (n = 448)[^cor] {.striped .hover}
+
+[^cor]: **Correlation is significant at the 0.01 level
+
+
+## Modeling fatal police interactions in the U.S.
+
+![Faculty and student research poster](poster3.png)
+
+## Campus Policing {background-image="https://media.cnn.com/api/v1/images/stellar/prod/240425164732-30-university-campus-protests-unf.jpg?q=w_1480,c_fill" background-opacity=0.5}
+
+## Policing on college campuses
+
+::: {.incremental}
+
+  - Background
+  
+    - First recorded instance of police officers on Yale University’s campus in 1894
+    
+    - An overwhelming 95% of college campuses employ campus police officers (Davis, 2023)
+
+    - Black student voices continue to elevate issues with campus policing (Davis, 2023)
+
+  - Policing of Black bodies
+  
+    - The history of institutionalized punishment and the legitimization of force against Black bodies is ingrained in the fabric of American history (Hattery & Smith, 2017).
+    
+    - Case Law: 1938 - *Missouri ex rel.--Gaines vs. Canada* (Ware, 2008); 1983 - *Boyle v. Torres* (Warner, Norcross, & Judd, 2015)
+
+  - Research question
+  
+    - Are American college campuses so violent that militarized force and weapons are necessary?
+:::
+
+## Policing on college campuses
+
+![Timeline of campus policing](campus-policing-timeline.jpg){width=25%}
+
+## Policing on college campuses
+
+::: {.incremental}
+
+  - Safety through legislation?
+  
+    - Clergy Act of 1990
+    
+    - 2020 - 119 Bills introduced across 33 states addresing campus safety (Villalobos, 2020)
+    
+    - Mounting state and local legislation authorizing firearms on college campuses.
+    
+    - Need for consensus on protection versus imperilment
+    
+  - Mental health challenges
+  
+    - Psychological, physical, and social implications of repeated and persistent exposure to trauma
+
+    - Depression and anxiety escalation (Alang et al., 2021)
+    
+    - Black student outrage over lack of mental health resources 
+    
+:::
+
+
+## Prisons {background-image="https://www.urban.org/sites/default/files/shutterstock_365427041_crop.jpg" background-opacity=0.5}
+
+::: {.incremental}
+
+- "In 2021, Black Americans were imprisoned at 5.0 times the rate of whites, while American Indians and Latinx people were imprisoned at 4.2 times and 2.4 times the white rate, respectively." ([The Sentencing Project](https://www.sentencingproject.org/reports/one-in-five-ending-racial-inequity-in-incarceration/), 2023)
+
+- "One in five Black men born in 2001 is likely to experience imprisonment within their lifetime, a decline from one in three for those born in 1981. Pushback from policymakers threatens further progress in reducing racial inequity in incarceration." ([The Sentencing Project](https://www.sentencingproject.org/reports/one-in-five-ending-racial-inequity-in-incarceration/), 2023)
+
+:::
+  
+## Prisons
+  
+The U.S. Bureau of Justice Statistics maintains records of federal and state prison populations[^carson].
+
+```{r}
+#| echo: false
+#| output: false
+#| warning: false
+library(ggplot2)
+library(readr)
+library(dplyr)
+race <- c("Black", "American Indian", "Latinx", "White", "Asian")
+rate <- c(901, 763, 434, 181, 72)
+prison_rates_ethnicity <- data.frame(race, rate)
+```
+
+
+```{r}
+#| echo: false
+#| output: true
+#| warning: false
+
+ggplot(prison_rates_ethnicity, aes(race, rate)) +
+  geom_col(fill="darkred") +
+  geom_text(aes(label=rate), vjust=1.6, color="white", size=3.5) +
+  theme_minimal() +
+  labs(title= "Imprisonment Rates by Race, 2021",
+       subtitle = "",
+       x ="Race",
+       y = "Per 100, 000 of US residents of each demographic group",
+       caption = "Carson (2022). Prisoners in 2021.") + 
+  theme(panel.background = element_blank())
+
+```
+[^carson]: Source: [Carson (2022). Prisoners in 2021 – Statistical tables. Bureau of Justice Statistics.](https://bjs.ojp.gov/library/publications/prisoners-2021-statistical-tables)
+
+## Prisons
+
+To support our framing of contemporary data, we take on an historical view[^prisons].
+
+```{r}
+#| echo: false
+#| output: false
+#| warning: false
+# read in data and update
+df <- read_csv("https://raw.githubusercontent.com/professornaite/prisons/main/data/fed_state_prison_pop_1926_1986_clean.csv")
+
+
+df %>% 
+  rename(Count = `Total`,
+         TotalPct = `Total Percentage`,
+         Type = `Prison Type`,
+         WhitePct = `White Percentage`,
+         BlackPct = `Black Percentage`) %>% 
+  relocate(Year, Type) -> df
+
+# subset data
+df_state = df %>% filter(Type == "State")
+df_state <- df_state %>% 
+  mutate(date = as.Date(Year, format = "%Y-%m-%d"))
+
+df_federal = df %>% filter(Type == "Federal")
+df_federal <- df_federal %>% 
+  mutate(date = as.Date(Year, format = "%Y-%m-%d"))
+
+df_both = df %>% filter(Type == "State + Federal")
+df_both <- df_both %>% 
+  mutate(date = as.Date(Year, format = "%Y-%m-%d"))
+
+```
+
+
+
